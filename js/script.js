@@ -19,6 +19,7 @@ var reset = document.getElementById("reset");
 var errors = 0;
 var author = document.getElementById("author");
 var historyEl = document.getElementById("history");
+var historyTitle = document.getElementById("historyTitle");
 
 var monthNames = [
   "January", "February", "March",
@@ -107,6 +108,9 @@ function getHistory() {
   historyEl.innerHTML = "";
   var jsonHistory = localStorage.getItem("wpmHistory");
   var wpmHistory = JSON.parse(jsonHistory);
+  if (wpmHistory.length > 0) {
+    historyTitle.style.display = "block";
+  }
   for (var i = 0; i < wpmHistory.length; i++) {
     historyEl.innerHTML += "<span>" + wpmHistory[i][0] + " WPM on " + wpmHistory[i][1] + "</span>";
   }
