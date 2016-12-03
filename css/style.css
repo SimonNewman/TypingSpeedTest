@@ -1,0 +1,113 @@
+body {
+  font-family: 'Inconsolata', monospace;
+  font-size: 15px;
+  padding-top: 50px;
+}
+
+h1, h2, h3 {
+  margin-bottom: 50px;
+}
+
+p {
+  margin-bottom: 50px;
+}
+
+#paragraph {
+  display: block;
+  height: 100%;
+  background: #eee;
+  padding: 10px 10px 0 10px;
+  margin-bottom: 50px;
+}
+
+#paragraph span {
+  display: inline-block;
+  font-size: 1.5em;
+  line-height: 1em;
+  padding: 1px;
+  margin-bottom: 10px;
+}
+
+#paragraph span#next {
+  color: #eee;
+  background: black;
+  animation: blinker 0.8s step-end infinite;
+}
+
+#paragraph span#next[data-wrong="yes"] {
+  color: red;
+  background: black;
+  animation: blinker-wrong 0.8s step-end infinite;
+}
+
+#paragraph span#next.space {
+  color: red;
+  background: black;
+  animation: blinker-space 0.8s step-end infinite;
+}
+
+#paragraph span#next.space[data-wrong="yes"] {
+  color: red;
+  background: black;
+  animation: blinker-wrong 0.8s step-end infinite;
+}
+
+@keyframes blinker-wrong {
+  0% {
+    color: #eee;
+    background: black;
+  }
+  50% {
+    color: red;
+    background: #eee;
+  }
+}
+
+@keyframes blinker {
+  0% {
+    color: #eee;
+    background: black;
+  }
+  50% {
+    color: black;
+    background: #eee;
+  }
+}
+
+@keyframes blinker-space {
+  0% {
+    color: #eee;
+    background: black;
+  }
+  50% {
+    color: #aaa;
+    background: #eee;
+  }
+}
+
+#paragraph span.space {
+  margin-left: 2px;
+  margin-right: 2px;
+  color: #aaa;
+}
+
+#paragraph span[data-wrong="yes"] {
+  color: red;
+}
+
+#inputBox, #inputBox:focus {
+  height: 0;
+  width: 0;
+  -webkit-appearance: textfield;
+  background-color: #eee;
+  -webkit-rtl-ordering: logical;
+  user-select: text;
+  cursor: auto;
+  padding: 0;
+  border: none;
+}
+
+button#reset {
+  font-size: 1.5em;
+  padding: 3px 12px;
+}
