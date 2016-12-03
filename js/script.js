@@ -18,7 +18,20 @@ var wpmElement = document.getElementById("wpm");
 var reset = document.getElementById("reset");
 var errors = 0;
 var author = document.getElementById("author");
+var historyEl = document.getElementById("history");
 
+var monthNames = [
+  "January", "February", "March",
+  "April", "May", "June", "July",
+  "August", "September", "October",
+  "November", "December"
+];
+
+/*var wpmHistory = [];
+var d = new Date();
+wpmHistory.push([26, d]);
+var jsonHistory = JSON.stringify(wpmHistory);
+localStorage.setItem("wpmHistory", jsonHistory);*/
 
 function setup() {
   paragraphSection.innerHTML = "";
@@ -63,6 +76,7 @@ inputBox.addEventListener("blur", function() {
 window.onload = function() {
   setup();
   inputBox.focus();
+  getHistory();
 };
 
 inputBox.addEventListener("input", function() {
@@ -89,11 +103,28 @@ inputBox.addEventListener("input", function() {
   }
 });
 
+function getHistory() {
+  historyEl.innerHTML = "";
+  var jsonHistory = localStorage.getItem("wpmHistory");
+  var wpmHistory = JSON.parse(jsonHistory);
+  for (var i = 0; i < wpmHistory.length; i++) {
+    historyEl.innerHTML += "<span>" + wpmHistory[i][0] + " WPM on " + wpmHistory[i][1] + "</span>";
+  }
+}
+
 function stopTimer() {
    clearTimeout(t);
    minutes = seconds / 60;
-   wpm.innerHTML = "You typed at " + Math.round(wordCount / minutes) + " words per minute with " + errors + " errors!";
+   wordsPerMinute = Math.round(wordCount / minutes);
+   wpm.innerHTML = "You typed at " +  wordsPerMinute + " words per minute with " + errors + " errors!";
    reset.style.display = "block";
+   var jsonHistory = localStorage.getItem("wpmHistory");
+   var wpmHistory = JSON.parse(jsonHistory);
+   var d = new Date();
+   wpmHistory.push ([wordsPerMinute, d]);
+   jsonHistory = JSON.stringify(wpmHistory);
+   localStorage.setItem("wpmHistory", jsonHistory);
+   getHistory();
 }
 
 function startTimer() {
